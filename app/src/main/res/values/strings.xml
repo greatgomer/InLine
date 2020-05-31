@@ -15,7 +15,9 @@
 
     <string name="map">Карта</string>
     <string name="your_roads">Ваши маршруты</string>
-    <string name="friends_roads">Маршруты друзей</string>
-    <string name="friends_GPS">Друзья поблизости</string>
+    <string name="friends_roads">Маршруты</string>
+    <string name="friends_GPS">Друзья</string>
     <string name="title_activity_maps">Map</string>
+    <string name="trainings">Тренировки</string>
+
 </resources>
