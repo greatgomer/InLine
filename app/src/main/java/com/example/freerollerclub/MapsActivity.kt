@@ -1,5 +1,12 @@
 package com.example.freerollerclub
 
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import com.google.android.gms.location.*
+
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,43 +14,34 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.google.android.gms.location.*
-
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
     val PERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
+    lateinit var mMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        this.supportActionBar?.hide()
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
     }
 
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
-        if (checkPermissions()) {
+        if (CheckPermissions(this).checkPermissions()) {
             if (isLocationEnabled()) {
 
                 mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
@@ -51,9 +49,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     if (location == null) {
                         requestNewLocationData()
                     } else {
-                    findViewById<TextView>(R.id.latTextView).text = location.latitude.toString()
-                    findViewById<TextView>(R.id.lonTextView).text = location.longitude.toString()
-                }
+                        setLocation(location)
+                    }
                 }
             } else {
                 Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show()
@@ -82,9 +79,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            var mLastLocation: Location = locationResult.lastLocation
-            findViewById<TextView>(R.id.latTextView).text = mLastLocation.latitude.toString()
-            findViewById<TextView>(R.id.lonTextView).text = mLastLocation.longitude.toString()
+            setLocation(locationResult.lastLocation)
         }
     }
 
@@ -95,21 +90,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         )
     }
 
-    private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            return true
-        }
-        return false
-    }
-
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
@@ -117,7 +97,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             PERMISSION_ID
         )
     }
-
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == PERMISSION_ID) {
@@ -127,7 +106,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    fun setLocation(currentLocation: Location){
+        val myLocation = LatLng(currentLocation.latitude, currentLocation.longitude)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 10.0f))
+        mMap.addMarker(MarkerOptions().position(myLocation).title("I'm here"))
+    }
+
         override fun onMapReady(googleMap: GoogleMap) {
+            mMap = googleMap
             getLastLocation()
     }
 }
