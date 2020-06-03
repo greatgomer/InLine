@@ -11,6 +11,7 @@ import com.google.android.gms.maps.SupportMapFragment
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     lateinit var mFusedLocationClient: FusedLocationProviderClient
+    val readFromFirebase = ReadFromFirebase()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,5 +26,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         override fun onMapReady(googleMap: GoogleMap) {
             MyLocation(this, mFusedLocationClient, googleMap).getLastLocation()
+            readFromFirebase.getDataFromDatabase(googleMap)
     }
 }
