@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".TrainsActivity">
 
     <TableRow
         android:layout_width="match_parent"
@@ -11,19 +11,18 @@
         android:layout_weight="1">
 
         <Button
-            android:onClick="onMap"
-            android:id="@+id/button_map"
+            android:id="@+id/button10"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/map" />
+            android:text="@string/type1" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button11"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/friends_roads" />
+            android:text="@string/type2" />
     </TableRow>
 
     <TableRow
@@ -32,18 +31,18 @@
         android:layout_weight="1">
 
         <Button
-            android:onClick="onTrains"
-            android:id="@+id/button_trains"
+            android:id="@+id/button12"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/trainings" />
+            android:text="@string/type3" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/button13"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/friends_GPS" />
+            android:text="@string/type4" />
     </TableRow>
+
 </TableLayout>

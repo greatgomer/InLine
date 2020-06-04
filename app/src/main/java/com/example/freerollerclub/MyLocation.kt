@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
@@ -102,6 +103,8 @@ class MyLocation(_context: Context, _fusedLocationClient: FusedLocationProviderC
     fun setLocation(currentLocation: Location){
         val myLocation = LatLng(currentLocation.latitude, currentLocation.longitude)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 11.0f))
-        mMap.addMarker(MarkerOptions().position(myLocation).title("I'm here"))
+        mMap.addMarker(MarkerOptions().position(myLocation).title("I'm here").icon(
+            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+        )
     }
 }

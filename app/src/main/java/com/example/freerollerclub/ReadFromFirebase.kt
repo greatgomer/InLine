@@ -20,13 +20,9 @@ class ReadFromFirebase {
                     val lon = ds.child("lon").getValue(String::class.java)
                     val name = ds.child("name").getValue(String::class.java)
                     val options = ds.child("options").getValue(String::class.java)
-                    Log.d(TAG, lat)
-                    Log.d(TAG, lon)
-                    Log.d(TAG, name)
-                    Log.d(TAG, options)
 
                     val marker = LatLng(lat!!.toDouble(), lon!!.toDouble())
-                    mMap.addMarker(MarkerOptions().position(marker))
+                    mMap.addMarker(MarkerOptions().position(marker).title(name).snippet(options))
 
                 }
             }

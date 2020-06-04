@@ -19,5 +19,10 @@
     <string name="friends_GPS">Друзья</string>
     <string name="title_activity_maps">Map</string>
     <string name="trainings">Тренировки</string>
+    <string name="type1">type1</string>
+    <string name="type2">type2</string>
+    <string name="type3">type3</string>
+    <string name="type4">type4</string>
+    <string name="button_back">Back</string>
 
 </resources>

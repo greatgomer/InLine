@@ -64,4 +64,10 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, MapsActivity::class.java)
         startActivity(intent)
     }
+
+    fun onTrains(view: View) {
+        val intent = Intent(this, TrainsActivity::class.java)
+        startActivity(intent)
+    }
+
 }
