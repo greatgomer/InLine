@@ -73,7 +73,7 @@ class MyLocation(_context: Context, _fusedLocationClient: FusedLocationProviderC
         mLocationRequest.numUpdates = 1
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-        mFusedLocationClient!!.requestLocationUpdates(
+        mFusedLocationClient.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
             Looper.myLooper()
         )
@@ -102,7 +102,7 @@ class MyLocation(_context: Context, _fusedLocationClient: FusedLocationProviderC
 
     fun setLocation(currentLocation: Location){
         val myLocation = LatLng(currentLocation.latitude, currentLocation.longitude)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 10.0f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12.0f))
         mMap.addMarker(MarkerOptions().position(myLocation).title("I'm here").icon(
             BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
         )
