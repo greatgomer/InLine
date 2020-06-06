@@ -1,7 +1,6 @@
 package com.example.freerollerclub
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -10,7 +9,6 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Looper
 import android.provider.Settings
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -19,21 +17,37 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MyLocation(_context: Context, _fusedLocationClient: FusedLocationProviderClient, _googleMap: GoogleMap) {
+class CurrentLocation(_context: Context, _fusedLocationClient: FusedLocationProviderClient, _googleMap: GoogleMap) {
     private val context: Context = _context
     private var mFusedLocationClient: FusedLocationProviderClient = _fusedLocationClient
     private val mMap: GoogleMap = _googleMap
+    private val PERMISSION_ID = 42
 
-    val PERMISSION_ID = 42
+    fun setLastLocation() {
+        if (checkPermissions()) {
+            if (!isLocationEnabled()) {
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                context.startActivity(intent)
+            }
+            mFusedLocationClient.lastLocation.addOnCompleteListener(context as Activity) { task ->
+                val location: Location? = task.result
+                if (location == null) {
+                    requestNewLocationData()
+                } else {
+                    setLocation(location)
+                }
+            }
+        } else {
+            requestPermissions()
+        }
+    }
 
-    fun checkPermissions(): Boolean {
+    private fun checkPermissions(): Boolean {
         if (ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+                context, Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                context, Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             return true
@@ -41,32 +55,15 @@ class MyLocation(_context: Context, _fusedLocationClient: FusedLocationProviderC
         return false
     }
 
-    @SuppressLint("MissingPermission")
-    fun getLastLocation() {
-        if (checkPermissions()) {
-            if (isLocationEnabled()) {
-
-                mFusedLocationClient.lastLocation.addOnCompleteListener(context as Activity) { task ->
-                    var location: Location? = task.result
-                    if (location == null) {
-                        requestNewLocationData()
-                    } else {
-                        setLocation(location)
-                    }
-                }
-            } else {
-                Toast.makeText(context, "Turn on location", Toast.LENGTH_LONG).show()
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                context.startActivity(intent)
-            }
-        } else {
-            requestPermissions()
-        }
+    private fun isLocationEnabled(): Boolean {
+        val locationManager: LocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
     }
 
-    @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
-        var mLocationRequest = LocationRequest()
+        val mLocationRequest = LocationRequest()
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         mLocationRequest.interval = 0
         mLocationRequest.fastestInterval = 0
@@ -85,13 +82,6 @@ class MyLocation(_context: Context, _fusedLocationClient: FusedLocationProviderC
         }
     }
 
-    private fun isLocationEnabled(): Boolean {
-        var locationManager: LocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER
-        )
-    }
-
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             context as Activity,
@@ -100,7 +90,7 @@ class MyLocation(_context: Context, _fusedLocationClient: FusedLocationProviderC
         )
     }
 
-    fun setLocation(currentLocation: Location){
+    private fun setLocation(currentLocation: Location){
         val myLocation = LatLng(currentLocation.latitude, currentLocation.longitude)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12.0f))
         mMap.addMarker(MarkerOptions().position(myLocation).title("I'm here").icon(

@@ -11,16 +11,16 @@
         android:layout_weight="1">
 
         <Button
-            android:onClick="onButton1"
-            android:id="@+id/button10"
+            android:onClick="onButtonSlalom"
+            android:id="@+id/buttonSlalom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/type1" />
 
         <Button
-            android:onClick="onButton2"
-            android:id="@+id/button11"
+            android:onClick="onButtonSlide"
+            android:id="@+id/buttonSlide"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -33,16 +33,16 @@
         android:layout_weight="1">
 
         <Button
-            android:onClick="onButton3"
-            android:id="@+id/button12"
+            android:onClick="onButtonJump"
+            android:id="@+id/buttonJump"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/type3" />
 
         <Button
-            android:onClick="onButton4"
-            android:id="@+id/button13"
+            android:onClick="onButtonAggressiv"
+            android:id="@+id/buttonAggressiv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

@@ -7,18 +7,18 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.*
 
-class ReadFromFirebase {
+class MarkersLocation {
     private lateinit var database: DatabaseReference
-    private var places_name = "Places"
-    var cities: MutableList<String> = mutableListOf<String>()
+    private var placesName = "Places"
+    var markers = arrayOf<String>()
 
     fun getDataFromDatabase(mMap: GoogleMap){
-        database = FirebaseDatabase.getInstance().getReference(places_name)
+        database = FirebaseDatabase.getInstance().getReference(placesName)
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (ds in dataSnapshot.children) {
                     val city = ds.key
-                    cities.add(city.toString())
+                    markers += city.toString()
                     for (childSnapshot in ds.children) {
                         val lat = childSnapshot.child("lat").getValue(String::class.java)
                         val lon = childSnapshot.child("lon").getValue(String::class.java)
@@ -27,13 +27,12 @@ class ReadFromFirebase {
 
                         val marker = LatLng(lat!!.toDouble(), lon!!.toDouble())
                         mMap.addMarker(MarkerOptions().position(marker).title(name).snippet(options))
-
                     }
                 }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.d(TAG, databaseError.getMessage()) //Don't ignore errors!
+                Log.d(TAG, databaseError.message) //Don't ignore errors!
             }
         }
         database.addListenerForSingleValueEvent(valueEventListener)
