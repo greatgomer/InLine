@@ -16,6 +16,7 @@ class ListOfTriks : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private var trains_name = "Trains"
     private lateinit var listView: ListView
+    private var tricks = mutableMapOf<String, String?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,7 @@ class ListOfTriks : AppCompatActivity() {
                 for (ds in dataSnapshot.children) {
                     val name = ds.child("name").getValue(String::class.java)
                     adapter.add(name.toString())
+                    tricks[name.toString()] = ds.key
                 }
                 listView.setAdapter(adapter)
             }
@@ -53,7 +55,7 @@ class ListOfTriks : AppCompatActivity() {
 
                 // Toast the values
                 intent_for_trik.putExtra("style", style)
-                intent_for_trik.putExtra("trik", itemValue)
+                intent_for_trik.putExtra("trik", tricks[itemValue])
                 startActivity(intent_for_trik)
             }
         }
