@@ -14,18 +14,22 @@ class TrainsActivity : AppCompatActivity() {
 
     fun onButton1(view: View) {
         val intent = Intent(this, ListOfTriks::class.java)
+        intent.putExtra("style","SLALOM")
         startActivity(intent)
     }
     fun onButton2(view: View) {
         val intent = Intent(this, ListOfTriks::class.java)
+        intent.putExtra("style","SLIDE")
         startActivity(intent)
     }
     fun onButton3(view: View) {
         val intent = Intent(this, ListOfTriks::class.java)
+        intent.putExtra("style","JUMP")
         startActivity(intent)
     }
     fun onButton4(view: View) {
         val intent = Intent(this, ListOfTriks::class.java)
+        intent.putExtra("style","AGGRESSIV")
         startActivity(intent)
     }
 }
