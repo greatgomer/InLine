@@ -33,6 +33,8 @@ class TrickActivity : AppCompatActivity() {
                     val name = dataSnapshot.child(fieldName).getValue(String::class.java)
                     adapter.add(name.toString())
                 }
+                val title = dataSnapshot.child("name").getValue(String::class.java)
+                supportActionBar!!.title = title
                 listView.adapter = adapter
             }
 
