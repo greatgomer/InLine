@@ -26,6 +26,8 @@ class ListOfTricksActivity : AppCompatActivity() {
         val adapter = ArrayAdapter<String>(this, R.layout.listview_item)
         val listView: ListView = findViewById(R.id.listviewTricks)
 
+        supportActionBar!!.title = style
+
         database = FirebaseDatabase.getInstance().getReference(trainsName).child(style)
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

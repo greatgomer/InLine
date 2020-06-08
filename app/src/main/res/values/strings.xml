@@ -17,7 +17,8 @@
     <string name="your_roads">Ваши маршруты</string>
     <string name="friends_roads">Маршруты</string>
     <string name="friends_GPS">Друзья</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">События рядом с вами</string>
+    <string name="title_activity_trains">Стили для тренировок</string>
     <string name="trainings">Тренировки</string>
     <string name="type1">Slalom</string>
     <string name="type2">Slide</string>
