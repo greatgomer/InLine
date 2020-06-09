@@ -1,4 +1,4 @@
-package com.example.freerollerclub
+package com.svdgroup.inline
 
 import android.Manifest
 import android.app.Activity

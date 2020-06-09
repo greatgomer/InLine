@@ -1,4 +1,4 @@
-package com.example.freerollerclub
+package com.svdgroup.inline
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
-  ActivityCompat.OnRequestPermissionsResultCallback {
+    ActivityCompat.OnRequestPermissionsResultCallback {
 
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private val readFromFirebase = MarkersLocation()

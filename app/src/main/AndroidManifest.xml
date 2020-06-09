@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.freerollerclub">
+    package="com.svdgroup.inline">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -13,11 +13,12 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TrickActivity"/>
-        <activity android:name=".ListOfTricksActivity" />
+        <activity android:name=".ListOfTricksActivity"></activity>
+        <activity android:name=".TrickActivity" />
         <activity
             android:name=".TrainsActivity"
-            android:label="@string/title_activity_trains"/>
+            android:label="@string/title_activity_trains" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
