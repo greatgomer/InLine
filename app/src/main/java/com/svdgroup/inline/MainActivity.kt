@@ -35,6 +35,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_links_on_cities -> {
+                val intent = Intent(this, RollersGroupsInCitiesActivity::class.java)
+                startActivity(intent)
+                return true
+            }
             R.id.action_your_account -> {
 //                val intent = Intent(this, MapsActivity::class.java)
 //                startActivity(intent)

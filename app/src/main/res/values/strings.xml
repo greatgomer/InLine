@@ -26,6 +26,7 @@
     <string name="type4">Aggressiv</string>
     <string name="button_back">Back</string>
 
+    <string name="links_on_cities">Группы роллеров</string>
     <string name="your_account">Ваш аккаунт</string>
     <string name="settings">Настройки</string>
 </resources>

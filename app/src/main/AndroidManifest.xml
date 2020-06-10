@@ -13,7 +13,10 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListOfTricksActivity"></activity>
+        <activity
+            android:name=".RollersGroupsInCitiesActivity"
+            android:label="@string/links_on_cities"></activity>
+        <activity android:name=".ListOfTricksActivity" />
         <activity android:name=".TrickActivity" />
         <activity
             android:name=".TrainsActivity"
