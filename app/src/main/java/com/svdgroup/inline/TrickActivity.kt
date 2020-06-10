@@ -13,7 +13,7 @@ import com.google.firebase.database.*
 class TrickActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private val trainsName = "Trains"
-    val fieldsOrder = arrayOf("name", "link_picture", "complexity", "description", "link_video")
+    val fieldsOrder = arrayOf("link_picture", "complexity", "description", "link_video")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
