@@ -13,7 +13,7 @@ class MarkersLocation {
     var markers = arrayOf<String>()
 
     fun getDataFromDatabase(mMap: GoogleMap){
-        database = FirebaseDatabase.getInstance().getReference(placesName)
+        database = AppDatabase.getDatabase()!!.getReference(placesName)
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (ds in dataSnapshot.children) {

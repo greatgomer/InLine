@@ -28,7 +28,7 @@ class ListOfTricksActivity : AppCompatActivity() {
 
         supportActionBar!!.title = style
 
-        database = FirebaseDatabase.getInstance().getReference(trainsName).child(style)
+        database = AppDatabase.getDatabase()!!.getReference(trainsName).child(style)
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (childSnapshot in dataSnapshot.children) {

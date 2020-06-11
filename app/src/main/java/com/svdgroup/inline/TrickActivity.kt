@@ -14,6 +14,7 @@ class TrickActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private val trainsName = "Trains"
     val fieldsOrder = arrayOf("link_picture", "complexity", "description", "link_video")
+    private lateinit var style : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +22,12 @@ class TrickActivity : AppCompatActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val style = intent.getStringExtra("style")
+        style = intent.getStringExtra("style")
         val trick = intent.getStringExtra("trick")
         val adapter = ArrayAdapter<String>(this, R.layout.listview_item)
         val listView: ListView = findViewById(R.id.listview_trick)
 
-        database = FirebaseDatabase.getInstance().getReference(trainsName).child(style).child(trick)
+        database = AppDatabase.getDatabase()!!.getReference(trainsName).child(style).child(trick)
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (fieldName in fieldsOrder) {
@@ -52,6 +53,7 @@ class TrickActivity : AppCompatActivity() {
             android.R.id.home -> {
                 // app icon in action bar clicked; go home
                 val intent = Intent(this, ListOfTricksActivity::class.java)
+                intent.putExtra("style", style)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 true
