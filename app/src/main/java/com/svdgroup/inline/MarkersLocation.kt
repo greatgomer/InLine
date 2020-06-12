@@ -9,17 +9,18 @@ import com.google.firebase.database.*
 
 class MarkersLocation {
     private lateinit var database: DatabaseReference
-    private var placesName = "Places"
-    var markers = arrayOf<String>()
+    private val citiesTitle = "Cities"
+    private val markersTitle = "Markers"
+//    var markers = arrayOf<String>()
 
     fun getDataFromDatabase(mMap: GoogleMap){
-        database = AppDatabase.getDatabase()!!.getReference(placesName)
+        database = AppDatabase.getDatabase()!!.getReference(citiesTitle)
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (ds in dataSnapshot.children) {
-                    val city = ds.key
-                    markers += city.toString()
-                    for (childSnapshot in ds.children) {
+//                    val city = ds.key
+//                    markers += city.toString()
+                    for (childSnapshot in ds.child(markersTitle).children) {
                         val lat = childSnapshot.child("lat").getValue(String::class.java)
                         val lon = childSnapshot.child("lon").getValue(String::class.java)
                         val name = childSnapshot.child("name").getValue(String::class.java)
