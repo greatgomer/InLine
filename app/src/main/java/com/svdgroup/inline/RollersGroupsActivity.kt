@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 class RollersGroupsActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private var cities = "Cities"
+    private val linksTitle = "Links"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +35,10 @@ class RollersGroupsActivity : AppCompatActivity() {
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (ds in dataSnapshot.children) {
-                    val name = ds.child("name_en").getValue(String::class.java)
-                    val city = Pair(ds.key.toString(), name.toString())
-                    adapter.add(city.toString())
-                    for (childSnapshot in ds.child("Links").children) {
-                        val link = childSnapshot.child("Links").getValue(String::class.java)
+                    val name = ds.child("name_ru").getValue(String::class.java)
+                    adapter.add(name.toString())
+                    for (childSnapshot in ds.child(linksTitle).children) {
+                        val link = childSnapshot.child("").getValue(String::class.java)
                         adapter.add(link.toString())
                     }
                 }
@@ -50,13 +50,13 @@ class RollersGroupsActivity : AppCompatActivity() {
             }
         }
         database.addListenerForSingleValueEvent(valueEventListener)
-
-        val intentForTrick = Intent(this, TrickActivity::class.java)
-        listView.onItemClickListener =
-            AdapterView.OnItemClickListener { _, _, position, _ ->
-                val itemValue = listView.getItemAtPosition(position) as String
-                startActivity(intentForTrick)
-            }
+//
+//        val intentForLink = Intent(this, TrickActivity::class.java)
+//        listView.onItemClickListener =
+//            AdapterView.OnItemClickListener { _, _, position, _ ->
+//                val itemValue = listView.getItemAtPosition(position) as String
+//                startActivity(intentForLink)
+//            }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
