@@ -7,13 +7,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.ListView
+import com.bumptech.glide.Glide
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_trick.*
 
 class TrickActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private val trainsName = "Trains"
-    val fieldsOrder = arrayOf("link_picture", "complexity", "description", "link_video")
+    val fieldsOrder = arrayOf("complexity", "description", "link_video")
     private lateinit var style : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +38,11 @@ class TrickActivity : AppCompatActivity() {
                     adapter.add(name.toString())
                 }
                 val title = dataSnapshot.child("name").getValue(String::class.java)
+                val imageLink = dataSnapshot.child("link_picture").getValue(String::class.java)
                 supportActionBar!!.title = title
                 listView.adapter = adapter
+
+                Glide.with(applicationContext).load(imageLink).into(imageView)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
