@@ -6,9 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.ListView
+import android.widget.*
 import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_trick.*
@@ -16,7 +14,6 @@ import kotlinx.android.synthetic.main.activity_trick.*
 class TrickActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private val trainsName = "Trains"
-    val fieldsOrder = arrayOf("complexity", "description", "link_video")
     private lateinit var style : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,22 +24,23 @@ class TrickActivity : AppCompatActivity() {
 
         style = intent.getStringExtra("style")
         val trick = intent.getStringExtra("trick")
-        val adapter = ArrayAdapter<String>(this, R.layout.listview_item)
-        val listView: ListView = findViewById(R.id.listview_trick)
+        val complexityView = findViewById<TextView>(R.id.textView_complexity)
+        val descriptionView = findViewById<TextView>(R.id.textView_description)
+        val linkVideoView = findViewById<TextView>(R.id.textView_link_video)
 
         database = AppDatabase.getDatabase()!!.getReference(trainsName).child(style).child(trick)
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (fieldName in fieldsOrder) {
-                    val name = dataSnapshot.child(fieldName).getValue(String::class.java)
-                    adapter.add(name.toString())
-                }
                 val title = dataSnapshot.child("name").getValue(String::class.java)
-                val imageLink = dataSnapshot.child("link_picture").getValue(String::class.java)
                 supportActionBar!!.title = title
-                listView.adapter = adapter
-
+                val imageLink = dataSnapshot.child("link_picture").getValue(String::class.java)
                 Glide.with(applicationContext).load(imageLink).into(imageView)
+                val complexity = dataSnapshot.child("complexity").getValue(String::class.java)
+                complexityView.text = complexity
+                val description = dataSnapshot.child("description").getValue(String::class.java)
+                descriptionView.text = description
+                val linkVideo = dataSnapshot.child("link_video").getValue(String::class.java)
+                linkVideoView.text = linkVideo
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
