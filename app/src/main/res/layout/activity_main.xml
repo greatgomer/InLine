@@ -1,53 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TableRow
+    <Button
+        android:id="@+id/button_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:onClick="onMap"
+        android:text="@string/map"
+        tools:ignore="ButtonStyle" />
 
-        <Button
-            android:onClick="onMap"
-            android:id="@+id/button_map"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/map"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/friends_roads"
-            tools:ignore="ButtonStyle" />
-    </TableRow>
-
-    <TableRow
+    <Button
+        android:id="@+id/button_trains"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:onClick="onTrains"
+        android:text="@string/trainings"
+        tools:ignore="ButtonStyle" />
 
-        <Button
-            android:onClick="onTrains"
-            android:id="@+id/button_trains"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/trainings"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/friends_GPS"
-            tools:ignore="ButtonStyle" />
-    </TableRow>
-</TableLayout>
+</LinearLayout>
